@@ -1,0 +1,39 @@
+<!-- app/views/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuários</title>
+</head>
+<body>
+  <!-- Título da página -->
+  <h1>Usuários</h1>
+  <!-- Lista de usuários -->
+  <ul id="user-list">
+    <!-- Os usuários serão inseridos dinamicamente aqui -->
+  </ul>
+
+  <script>
+    
+      // Faz uma requisição para obter os usuários
+      fetch('/users/:id')
+        .then(response => response.json()) // Converte a resposta para JSON
+        .then(users => {
+          const userList = document.getElementById('user-list'); // Obtém a lista de usuários
+          userList.innerHTML = '';
+          // Itera sobre os usuários e os adiciona à lista
+
+          users.forEach(user => {
+            const listItem = document.createElement('li'); // Cria um elemento de lista
+            listItem.textContent = user.id,user.name,user.age; // Define o texto do elemento como o nome do usuário
+            userLlistItemist.appendChild(listItem); // Adiciona o elemento à lista
+          });
+        })
+        .catch(error => console.error('Erro ao buscar usuário:', error)); // Manipula erros
+
+  </script>
+
+</body>
+</html>
