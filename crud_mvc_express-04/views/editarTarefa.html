@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<!-- Meta tags -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Título da página -->
+<title>Editar Tarefa</title>
+</head>
+<body>
+<!-- Título principal -->
+<h1>Editar Tarefa</h1>
+<!-- Formulário para buscar uma tarefa por ID -->
+<form id="buscarForm">
+<label for="tarefaId">ID da Tarefa:</label>
+<input type="number" id="tarefaId" name="tarefaId" required />
+<!-- Botão para buscar a tarefa -->
+<button type="button" onclick="buscarTarefa()">Buscar</button>
+</form>
+<hr />
+<!-- Título secundário -->
+<h2>Detalhes da Tarefa</h2>
+<!-- Formulário para editar uma tarefa (inicialmente oculto) -->
+<form id="editarForm" style="display: none">
+<label for="descricao">Descrição:</label>
+<!-- Campo de entrada para a descrição da tarefa -->
+<input type="text" id="descricao" name="descricao" required />
+<!-- Botão para atualizar a tarefa -->
+<button type="button" onclick="atualizarTarefa()">Atualizar</button>
+<!-- Botão para cancelar a edição da tarefa -->
+<button type="button" onclick="voltarInicio()">Cancelar</button>
+</form>
+<script>
+// Função assíncrona para buscar uma tarefa por ID
+async function buscarTarefa() {
+// Obtém o ID da tarefa do campo de entrada
+const tarefaId = document.getElementById("tarefaId").value;
+// Envia uma requisição GET para obter os detalhes da tarefa
+const response = await fetch(`/tarefas/${tarefaId}`);
+// Verifica se a resposta da requisição é bem-sucedida
+if (response.ok) {
+// Converte a resposta para JSON
+const tarefa = await response.json();
+// Preenche o campo de descrição com a descrição da tarefa
+document.getElementById("descricao").value = tarefa.descricao;
+// Exibe o formulário de edição
+document.getElementById("editarForm").style.display = "block";
+} else {
+// Exibe um alerta se a tarefa não for encontrada
+alert("Tarefa não encontrada.");
+}
+}
+// Função assíncrona para atualizar uma tarefa
+async function atualizarTarefa() {
+// Obtém o ID da tarefa do campo de entrada
+const tarefaId = document.getElementById("tarefaId").value;
+// Obtém a nova descrição da tarefa
+const descricao = document.getElementById("descricao").value;
+const response = await fetch(`/tarefas/${tarefaId}`, {
+// Envia uma requisição PUT para atualizar a tarefa
+method: "PUT", // Método HTTP PUT
+headers: {
+// Tipo de conteúdo JSON
+"Content-Type": "application/json",
+},
+// Corpo da requisição contendo a nova descrição da tarefa
+body: JSON.stringify({ descricao }),
+});
+// Verifica se a resposta da requisição é bem-sucedida
+if (response.ok) {
+// Exibe um alerta de sucesso
+alert("Tarefa atualizada com sucesso!");
+// Redireciona para a página de listagem de tarefas
+window.location.href = "/listar-tarefa";
+} else {
+alert("Erro ao atualizar tarefa.");
+}
+// Exibe um alerta se houver erro ao atualizar a tarefa
+}
+// Função para voltar à página inicial de listagem de tarefas
+function voltarInicio() {
+// Redireciona para a página de listagem de tarefas
+window.location.href = "/tarefas";
+}
+</script>
+</body>
+</html>

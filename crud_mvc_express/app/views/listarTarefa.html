@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Listar Tarefas</title>
+  <script>
+    window.onload = function () {
+      // Ao carregar a página, faz uma requisição para a API de listar tarefas
+      fetch("/tarefas/api/listar")
+        // Converte a resposta para JSON
+        .then((response) => response.json())
+        .then((tarefas) => {
+          // Manipula os dados das tarefas retornadas
+          const lista = document.getElementById("listaTarefas");
+          tarefas.forEach((tarefa) => {
+            // Para cada tarefa, cria um item de lista e adiciona links de edição e exclu
+            const item = document.createElement("li");
+            // Exibe a descrição da tarefa
+            item.textContent = tarefa.descricao + " - ";
+            // Cria o link para editar a tarefa
+            const linkEditar = document.createElement("a");
+            linkEditar.href = `/tarefas/editar/${tarefa.id}`;
+            linkEditar.textContent = "Editar";
+            item.appendChild(linkEditar);
+            // Adiciona um separador entre os links
+            item.append(" | ");
+            // Cria o link para excluir a tarefa
+            const linkExcluir = document.createElement("a");
+            linkExcluir.href = `/tarefas/excluir/${tarefa.id}`;
+            linkExcluir.textContent = "Excluir";
+            item.appendChild(linkExcluir);
+            // Adiciona o item à lista de tarefas
+            lista.appendChild(item);
+          });
+        })
+        // Captura e exibe erros caso ocorram durante a requisição
+        .catch((error) => console.error("Erro ao buscar tarefas:", error));
+    };
+  </script>
+</head>
+
+<body>
+  <h1>Listar Tarefas</h1>
+  <ul id="listaTarefas">
+    <!-- As tarefas serão listadas aqui -->
+  </ul>
+</body>
+
+</html>

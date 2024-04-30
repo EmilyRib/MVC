@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Excluir Tarefa</title>
+    <!-- Importa o arquivo de estilo CSS -->
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>Excluir Tarefa</h1>
+        <!-- Mensagem de confirmação para excluir a tarefa -->
+        <p>Tem certeza de que deseja excluir esta tarefa?</p>
+        <!-- Formulário para confirmar a exclusão da tarefa -->
+        <form action="/tarefas/excluir/{{id}}" method="post">
+            <!-- Botão para confirmar a exclusão -->
+            <button type="submit" class="btn btn-danger">Excluir</button>
+            <!-- Link para cancelar a exclusão e voltar para a lista de tarefas -->
+            <a href="/tarefas" class="btn btn-default">Cancelar</a>
+        </form>
+    </div>
+</body>
+
+</html>

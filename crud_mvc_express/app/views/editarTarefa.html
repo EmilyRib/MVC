@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Editar Tarefa</title>
+    <!-- Importa o arquivo de estilo CSS -->
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>Editar Tarefa</h1>
+        <!-- Formulário para editar uma tarefa -->
+        <form action="/tarefas/editar/{{id}}" method="post">
+            <label for="descricao">Descrição:</label>
+            <!-- Campo de entrada para a descrição da tarefa, preenchido com a descrição atual
+        -->
+            <input type="text" id="descricao" name="descricao" value="{{descricao}}" required />
+            <!-- Botão para enviar o formulário e atualizar a tarefa -->
+            <button type="submit">Atualizar</button>
+        </form>
+    </div>
+</body>
+
+</html>
